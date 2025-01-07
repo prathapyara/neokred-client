@@ -1,0 +1,23 @@
+name: Deploy client ci/cd
+
+on:
+ push:
+  branches:
+   - neokred-client
+
+jobs:
+ build:
+  runs-on: ubuntu:latest
+  steps:
+    - name: checkout source
+      uses: action/checkout@v3
+    - name: Docker login
+      run : docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}  
+    - name: Docker build image
+      run: docker build -t prathapyara/neokred-client:latest
+    - name: Docker push to hub
+      run: docker push prathapyara/neokred-client:latest    
+    - name: Docker pull
+      run: docker pull prathapyara/neokred-client:latest #these two steps are optional these cannot reflect in the local docker and we cannot run as because github actions are using the different environment
+    - name: Docker run
+      run: docker run -d -p 3000:80 prathapyara/neokred-client:latest    
