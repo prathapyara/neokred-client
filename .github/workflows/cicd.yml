@@ -20,4 +20,4 @@ jobs:
     - name: Docker pull
       run: docker pull prathapyara/neokred-client:latest #these two steps are optional these cannot reflect in the local docker and we cannot run as because github actions are using the different environment
     - name: Docker run
-      run: docker run -d -p 3000:80 prathapyara/neokred-client:latest    
+      run: docker run -d -p 5000:3000 prathapyara/neokred-client:latest    
